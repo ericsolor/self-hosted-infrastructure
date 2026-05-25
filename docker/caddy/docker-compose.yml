@@ -1,0 +1,28 @@
+services: # Container's services
+
+  caddy: # Service name
+    image: caddy:latest
+    container_name: caddy
+
+    volumes: # mount drives to container
+      - ${CADDY_FILE}:/etc/caddy/Caddyfile:ro
+      - ${CADDY_CONFIG_PATH}:/config
+      - ${CADDY_DATA_PATH}:/data
+
+    networks:
+      - pub_net
+      - dockge_net
+      - ollama_net
+
+    ports:
+      - "${VPN_IP}:80:80"
+      - "${VPN_IP}:443:443"
+      - "${VPN_IP}:443:443/udp"
+
+networks: # Container's networks
+  pub_net:
+    external: true
+  dockge_net:
+    external: true
+  ollama_net:
+    external: true
