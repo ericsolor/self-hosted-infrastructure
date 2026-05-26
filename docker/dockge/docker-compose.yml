@@ -1,0 +1,16 @@
+services:
+  dockge:
+    image: louislam/dockge:1
+    container_name: dockge
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_DIR}:/app/data
+      - ${DOCKER_DIR}:/opt/stacks
+    environment:
+      - DOCKGE_STACKS_DIR=/opt/stacks
+    networks:
+      - dockge_net
+
+networks:
+  dockge_net:
+    external: true
