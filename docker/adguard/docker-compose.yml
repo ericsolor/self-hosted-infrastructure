@@ -7,9 +7,6 @@ services:
       - "${VPN_IP}:53:53/tcp"
       - "${VPN_IP}:53:53/udp"
 
-      # Web UI
-      - "${VPN_IP}:8154:80"
-
     volumes:
       - ${ADGUARD_WORK}:/opt/adguardhome/work
       - ${ADGUARD_CONF}:/opt/adguardhome/conf
