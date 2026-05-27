@@ -1,0 +1,39 @@
+services:
+
+  syncthing:
+    image: syncthing/syncthing:latest
+    container_name: syncthing
+
+    networks:
+      - pub_net
+
+    ports:
+      - "22000:22000/tcp"
+      - "22000:22000/udp"
+
+    volumes:
+      - ${SYNCTHING_CONFIG_PATH}:/var/syncthing/config
+      - ${SYNC_FOLDER}:/var/syncthing/Sync
+      - ${SB_FOLDER}:/var/syncthing/seedbox
+      - ${PROGRAMS_FOLDER}:/var/syncthing/wip
+
+    environment:
+      - PUID=${PID}
+      - PGID=${GID}
+      - TZ=${TZ}
+
+    tmpfs:
+      - /tmp:size=512m # uses ram for tmp files
+
+    init: true # enables init system (pid 1) inside container to foward SIGTERM and SIGINT & clean up zombie processes
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "127.0.0.1:8384"] # command being run
+      interval: 1h # interval of test
+      timeout: 10s # 10s of no response
+      retries: 3 # retry 3 times
+      start_period: 40s # allow 40s for starting
+
+networks:
+  pub_net:
+    external: true

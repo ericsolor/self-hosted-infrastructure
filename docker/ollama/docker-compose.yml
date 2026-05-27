@@ -1,0 +1,42 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    environment:
+      - OLLAMA_KEEP_ALIVE=30m
+      - OLLAMA_NUM_PARALLEL=1
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - OLLAMA_ORIGINS=*
+    volumes:
+      - ${OLLAMA_DATA}:/root/.ollama
+    networks:
+      - ollama_net
+    ports:
+      - "${OLLAMA_PORT}:11434"
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:latest
+    container_name: open-webui
+    user: "${PUID}:${PGID}"
+    volumes:
+      - ${WEBUI_DATA}:/app/backend/data
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=${WEBUI_PASS}
+    networks:
+      - ollama_net
+
+networks:
+  ollama_net:
+    external: true
