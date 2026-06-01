@@ -39,6 +39,20 @@ That moment was awakening; a clear example of how much control you give up using
 
 ## Thermals and Cooling
 
+This system is housed in a standard size computer tower, primarily built for ATX motherboards. There are three 120mm fans installed; two are installed at the top of the tower and one is installed on the back of the tower. On the top of the tower closes to the front the fan is oriented to act as an intake fan to bring in and circulate cool air. Next to it, the fan located at the top of the tower closest to the back is oriented to act as an exhaust fan. These orientations were chosen to allow unabstructed cool air to circulate through the case, and the exhaust fan on top is located right above the cpu pulling out the hot air produced by the CPU cooler. The back follows the same principle and pulls hot air out of the case. 
+
+In addiation, this system using an ARTIC Liquid Freezer III AIO CPU cooler to ...
+
+### AVERAGE TEMPS:
+
+### CONCERNS: 
+
+There is no fan purposed with circulating air throguh the drives which could potentially cause problems if there is heavy I/O operations. This is more troublesome considering that a 5070ti is exhausing air right over the drive's housing.
+
+### DIAGRAM:
+
+![Air Flow Diagram](../diagrams/AirFlowDiagram.png)
+
 ## Infrastructure Philosophy
 
 ## Security Overview
